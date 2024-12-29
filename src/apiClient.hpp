@@ -28,5 +28,5 @@ private:
     std::string parameter;
     nlohmann::json payload;
 
-    std::string errorToString(httplib::Error err) const;
+    std::string errorToString(const httplib::Error& err) const;
 };
