@@ -99,7 +99,7 @@ std::string apiClient::sendPOSTRequest() const {
     return "Error: " + errorToString(res.error());
 }
 
-std::string apiClient::errorToString(httplib::Error err) const {
+std::string apiClient::errorToString(const httplib::Error& err) const {
     switch (err) {
         case httplib::Error::Success:
             return "Success";
