@@ -5,13 +5,14 @@ ifeq ($(shell uname), Darwin)
 else
     CXXFLAGS = -std=c++23  # Default flags
 endif
-LDFLAGS = -L$(OPENSSL_DIR) -lssl -lcrypto  # Link local OpenSSL libraries
 
 # Directories
 SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
 OPENSSL_DIR = $(SRC_DIR)/openssl/include  # Local OpenSSL directory
+
+LDFLAGS = -L$(OPENSSL_DIR) -lssl -lcrypto  # Link local OpenSSL libraries
 
 # Source files and object files
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
