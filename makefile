@@ -1,9 +1,9 @@
 # Compiler and flags
 CXX = g++
 ifeq ($(shell uname), Darwin)
-    CXXFLAGS = -std=c++2b -I$(OPENSSL_DIR)  # macOS-specific flags
+    CXXFLAGS = -std=c++2b  # macOS-specific flags
 else
-    CXXFLAGS = -std=c++23 -I$(OPENSSL_DIR)  # Default flags
+    CXXFLAGS = -std=c++23  # Default flags
 endif
 LDFLAGS = -L$(OPENSSL_DIR) -lssl -lcrypto  # Link local OpenSSL libraries
 
@@ -30,6 +30,9 @@ directories:
 # Link object files to create the executable
 $(TARGET): $(OBJ_FILES)
 	$(CXX) $(OBJ_FILES) -o $@ $(LDFLAGS)  # Link OpenSSL libraries
+
+$(OBJ_DIR)/apiClient.o: $(SRC_DIR)/apiClient.cpp
+	$(CXX) $(CXXFLAGS) -I$(OPENSSL_DIR) -c $< -o $@
 
 # Rule to recompile .o files when .hpp files change
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(SRC_DIR)/%.hpp | directories
