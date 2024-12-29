@@ -1,7 +1,6 @@
 #include "matchBuilder.hpp"
 
 #include <iostream>
-#include <random>
 #include <string>
 
 #include "json.hpp"
@@ -133,11 +132,7 @@ std::string matchBuilder::getRandomFromJson(const std::string& jsonString) {
         return "";
     }
 
-    // Generate a random index
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, keys.size() - 1);
-    int randomIndex = distrib(gen);
+    int randomIndex = myRandom::generateRandomInt(0, keys.size() - 1);
 
     return keys[randomIndex]; // Return a random key from the file
 }
