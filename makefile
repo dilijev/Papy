@@ -8,9 +8,9 @@ OPENSSL_DIR = $(SRC_DIR)/openssl/include  # Local OpenSSL directory
 CXX = g++
 CXXFLAGS_COMMON = -I$(OPENSSL_DIR) -MMD -MP   # Include dependency tracking
 ifeq ($(shell uname), Darwin)
-    CXXFLAGS = -std=c++2b $(CXXFLAGS_COMMON)  # macOS-specific flags
+	CXXFLAGS = -std=c++2b $(CXXFLAGS_COMMON)  # macOS-specific flags
 else
-    CXXFLAGS = -std=c++23 $(CXXFLAGS_COMMON)  # Default flags
+	CXXFLAGS = -std=c++23 $(CXXFLAGS_COMMON)  # Default flags
 endif
 
 # Linker flags
@@ -35,7 +35,7 @@ directories:
 
 # Link object files to create the executable
 $(TARGET): $(OBJ_FILES)
-	$(CXX) $(OBJ_FILES) -o $@ $(LDFLAGS)  # Link OpenSSL libraries
+	$(CXX) $(OBJ_FILES) -o $@ $(LDFLAGS)
 
 # Rule to compile .cpp to .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | directories
