@@ -31,6 +31,14 @@ directories:
 $(TARGET): $(OBJ_FILES)
 	$(CXX) $(OBJ_FILES) -o $@ $(LDFLAGS)  # Link OpenSSL libraries
 
+# Rule to recompile .o files when .hpp files change
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(SRC_DIR)/%.hpp | directories
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# # Dummy target to touch .cpp files when .hpp files change
+# $(SRC_DIR)/%.cpp: $(SRC_DIR)/%.hpp
+# 	@echo $<
+
 # Rule to compile .cpp to .o
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | directories
 	$(CXX) $(CXXFLAGS) -c $< -o $@
