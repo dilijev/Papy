@@ -1,7 +1,6 @@
 #include "oceanBuilder.hpp"
 
 #include <iostream>
-#include <random>
 
 #include "mapping.hpp"
 #include "myRandom.hpp"
@@ -45,11 +44,7 @@ std::string oceanBuilder::getRandomFromJson() {
     }
 
     // Generate a random index
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, values.size() - 1);
-
-    int randomIndex = distrib(gen);
+    int randomIndex = myRandom::generateRandomInt(0, values.size() - 1);
 
     return values[randomIndex]; // Return a random value from the file
 }
