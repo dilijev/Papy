@@ -29,7 +29,7 @@ json oceanBuilder::randomOcean() {
 }
 
 // Internal function to remove the first and last characters of a string
-std::string oceanBuilder::dropFirstAndLast(const std::string& str) {
+std::string oceanBuilder::dropFirstAndLast(const std::string& str) const {
     if (str.length() > 2) { return str.substr(1, str.length() - 2); }
     return ""; // Return an empty string if the input is too short
 }

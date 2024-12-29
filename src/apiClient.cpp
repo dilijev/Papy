@@ -44,7 +44,7 @@ void apiClient::setPayload(const json& payload) {
     this->payload = payload;
 }
 
-std::string apiClient::sendGETRequest() {
+std::string apiClient::sendGETRequest() const {
     const std::string requestCombined = (endpoint.empty() ? "/" : endpoint) + (parameter.empty() ? "" : parameter);
 
     httplib::Result res;
@@ -67,7 +67,7 @@ std::string apiClient::sendGETRequest() {
     return "Error: " + errorToString(res.error());
 }
 
-std::string apiClient::sendPOSTRequest() {
+std::string apiClient::sendPOSTRequest() const {
     const std::string requestCombined = (endpoint.empty() ? "/" : endpoint) + (parameter.empty() ? "" : parameter);
 
     if (endpoint.empty()) {
@@ -99,7 +99,7 @@ std::string apiClient::sendPOSTRequest() {
     return "Error: " + errorToString(res.error());
 }
 
-std::string apiClient::errorToString(httplib::Error err) {
+std::string apiClient::errorToString(httplib::Error err) const {
     switch (err) {
         case httplib::Error::Success:
             return "Success";
