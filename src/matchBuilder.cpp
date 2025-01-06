@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "json.hpp"
+#include "dependencies/json.hpp"
 #include "mapping.hpp"
 #include "myRandom.hpp"
 
@@ -13,7 +13,7 @@ using json = nlohmann::json;
 json matchBuilder::randomMatch() const {
     json matchTemplate;
     try {
-        matchTemplate = json::parse(matchTemplateJsonMinified);
+        matchTemplate = json::parse(mapping::MATCH_TEMPLATE_JSON_MINIFIED);
     } catch (const nlohmann::json::parse_error& e) {
         std::cerr << "JSON Parse Error: " << e.what() << std::endl;
         // Handle the error or return early
@@ -62,24 +62,24 @@ json matchBuilder::randomMatch() const {
         participant["champExperience"] = myRandom::generateRandomInt(1, 12576);
         participant["champLevel"] = myRandom::generateRandomInt(1, 18);
         participant["championId"] = myRandom::generateRandomInt(1, 200);
-        participant["championName"] = getRandomFromJson(championsJson);
+        participant["championName"] = getRandomFromJson(mapping::CHAMPSIONS_JSON);
 
         // Randomizes items purchased
-        participant["item0"] = getRandomFromJson(itemsJson);
-        participant["item1"] = getRandomFromJson(itemsJson);
-        participant["item2"] = getRandomFromJson(itemsJson);
-        participant["item3"] = getRandomFromJson(itemsJson);
-        participant["item4"] = getRandomFromJson(itemsJson);
-        participant["item5"] = getRandomFromJson(itemsJson);
-        participant["item6"] = getRandomFromJson(itemsJson);
+        participant["item0"] = getRandomFromJson(mapping::ITEMS_JSON);
+        participant["item1"] = getRandomFromJson(mapping::ITEMS_JSON);
+        participant["item2"] = getRandomFromJson(mapping::ITEMS_JSON);
+        participant["item3"] = getRandomFromJson(mapping::ITEMS_JSON);
+        participant["item4"] = getRandomFromJson(mapping::ITEMS_JSON);
+        participant["item5"] = getRandomFromJson(mapping::ITEMS_JSON);
+        participant["item6"] = getRandomFromJson(mapping::ITEMS_JSON);
 
         // Randomizes summoner spells
-        participant["summoner1Id"] = getRandomFromJson(summonersJson);
-        participant["summoner2Id"] = getRandomFromJson(summonersJson);
+        participant["summoner1Id"] = getRandomFromJson(mapping::SUMMMONERS_JSON);
+        participant["summoner2Id"] = getRandomFromJson(mapping::SUMMMONERS_JSON);
 
         // Randomizes keystone rune and secondary school
-        participant["perks"]["styles"][0]["selections"][0]["perk"] = getRandomFromJson(keystonesJson);
-        participant["perks"]["styles"][1]["style"] = getRandomFromJson(secondaryRunesJson);
+        participant["perks"]["styles"][0]["selections"][0]["perk"] = getRandomFromJson(mapping::KEYSTONES_JSON);
+        participant["perks"]["styles"][1]["style"] = getRandomFromJson(mapping::SECONDARY_RUNES_JSON);
 
         // Random Summoner Name and Riot Account data
         if (isFirstIteration) {

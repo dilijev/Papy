@@ -6,21 +6,20 @@
 #include "myRandom.hpp"
 
 // project dependencies
-#include "json.hpp"
+#include "dependencies/json.hpp"
 
 using json = nlohmann::json;
 
 json oceanBuilder::randomOcean() {
     json oceanTemplate;
     try {
-        oceanTemplate = json::parse(oceanPayloadTemplate);
+        oceanTemplate = json::parse(mapping::OCEAN_PAYLOAD_TEMPLATE);
     } catch (const nlohmann::json::parse_error& e) {
         std::cerr << "JSON Parse Error: " << e.what() << std::endl;
         // Handle the error or return early
     }
 
     oceanTemplate["overrides"]["business_unit"]["name"] = "Papy Test";
-    // oceanTemplate["overrides"]["business_unit"]["name"] = getRandomFromJson();
     oceanTemplate["overrides"]["application"]["name"] = myRandom::generateRandomString(7);
     oceanTemplate["overrides"]["project"]["name"] = getRandomFromJson();
 
@@ -35,7 +34,7 @@ std::string oceanBuilder::dropFirstAndLast(const std::string& str) const {
 
 // Static helper function to get a random value from a given JSON file
 std::string oceanBuilder::getRandomFromJson() {
-    json items = json::parse(sportsCars);
+    json items = json::parse(mapping::SPORTS_CARS);
 
     // Collect all values
     std::vector<std::string> values;

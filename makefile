@@ -2,7 +2,19 @@
 SRC_DIR = src
 OBJ_DIR = obj
 BIN_DIR = bin
-OPENSSL_DIR = $(SRC_DIR)/openssl/include  # Local OpenSSL directory
+OPENSSL_DIR = $(SRC_DIR)/dependencies/openssl/include  # Local OpenSSL directory
+
+# Compiler and flags
+CXX = g++
+CXXFLAGS_COMMON = -I$(OPENSSL_DIR) -MMD -MP   # Include dependency tracking
+ifeq ($(shell uname), Darwin)
+	CXXFLAGS = -std=c++2b $(CXXFLAGS_COMMON)  # macOS-specific flags
+else
+	CXXFLAGS = -std=c++23 $(CXXFLAGS_COMMON)  # Default flags
+endif
+
+# Linker flags
+LDFLAGS = -L$(OPENSSL_DIR) -lssl -lcrypto  # Link local OpenSSL libraries
 
 # Compiler and flags
 CXX = g++

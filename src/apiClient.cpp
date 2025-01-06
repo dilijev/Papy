@@ -4,12 +4,10 @@
 #include <string>
 
 // project dependencies
-#include "json.hpp"
+#include "dependencies/json.hpp"
 
 #define CPPHTTPLIB_OPENSSL_SUPPORT
-#include "httplib.h"
-
-using json = nlohmann::json;
+#include "dependencies/httplib.h"
 
 // Constructor to initialize the server address
 apiClient::apiClient(const std::string& serverAddress) {
@@ -40,7 +38,7 @@ void apiClient::setParameter(const std::string& parameter) {
     this->parameter = parameter;
 }
 
-void apiClient::setPayload(const json& payload) {
+void apiClient::setPayload(const nlohmann::json& payload) {
     this->payload = payload;
 }
 
@@ -68,6 +66,23 @@ std::string apiClient::sendGETRequest() const {
 }
 
 std::string apiClient::sendPOSTRequest() const {
+    // TODO: Add const std::string& apiToken to handle bearer tokens
+    // Set the Authorization and Content-Type headers
+    /*
+    httplib::Headers headers = {
+        {"Authorization", "Bearer " + apiToken},
+        {"Content-Type", "application/json"}
+    };
+
+    res = sslClient->Post(requestCombined.c_str(), payload.dump(), "application/json");
+    res = client->Post(requestCombined.c_str(), payload.dump(), "application/json");
+
+    These lines need to be changed to 
+
+    res = sslClient->Post(requestCombined.c_str(), payload.dump(), headers);
+    res = client->Post(requestCombined.c_str(), payload.dump(), headers);
+    */
+    
     const std::string requestCombined = (endpoint.empty() ? "/" : endpoint) + (parameter.empty() ? "" : parameter);
 
     if (endpoint.empty()) {

@@ -14,7 +14,7 @@
 #include "oceanBuilder.hpp"
 
 // project dependencies
-#include "json.hpp"
+#include "dependencies/json.hpp"
 
 using json = nlohmann::json;
 
@@ -33,7 +33,7 @@ void threadWorks::signalHandler(int signal) {
     isProgramActive = false;
 }
 
-void threadWorks::sendRequest(apiClient& client, bool verbose, std::string payload, MillisecondClock& clock) {
+void threadWorks::sendRequest(apiClient& client, bool verbose, std::string payload, millisecondClock& clock) {
     std::transform(payload.begin(), payload.end(), payload.begin(), ::tolower);
     std::string response;
 
@@ -44,12 +44,10 @@ void threadWorks::sendRequest(apiClient& client, bool verbose, std::string paylo
     if (payload.empty()) {
         response = client.sendGETRequest();
     } else if (payload == "lol") {
-        matchBuilder randMatch;
-        client.setPayload(randMatch.randomMatch().dump(4));
+        client.setPayload(matchBuilder::randomMatch().dump(4));
         response = client.sendPOSTRequest();
     } else if (payload == "ocean") {
-        oceanBuilder myOcean;
-        client.setPayload(myOcean.randomOcean());
+        client.setPayload(oceanBuilder::randomOcean());
         response = client.sendPOSTRequest();
     } else {
 
@@ -92,7 +90,11 @@ void threadWorks::sendRequest(apiClient& client, bool verbose, std::string paylo
         }
 
         // TODO: This line prints a new line on Mac?
-        //std::cout << "\r" << std::string(100 , ' ') << "\r" ;
+        // "/033" ANSI escape character
+        // "[" indicates start of a control sequence
+        // "2" 2 specifies the entire line
+        // "K" clears the selection
+        // "\r" returns cursor to start of line
         std::cout << "\033[2K\r";
         // Print updated info on the same line
         std::cout << "\rTotal Sent: " << totalPayloadsSent
@@ -106,7 +108,7 @@ void threadWorks::sendRequest(apiClient& client, bool verbose, std::string paylo
 
 // Orchestrates the sending of requests and main loop for program
 void threadWorks::runWorkerThread(const std::string& targetURL, const std::string& endpoint, bool verbose, int payloadCount, int rateLimit, int ramp, int spike, std::string payload, std::string parameter) {
-    MillisecondClock clock;
+    millisecondClock clock;
     apiClient client(targetURL);
     client.setEndpoint(endpoint);
     client.setParameter(parameter);

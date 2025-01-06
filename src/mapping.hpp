@@ -2,11 +2,14 @@
 
 #include <string>
 
-extern const std::string keystonesJson;
-extern const std::string secondaryRunesJson;
-extern const std::string summonersJson;
-extern const std::string itemsJson;
-extern const std::string championsJson;
-extern const std::string oceanPayloadTemplate;
-extern const std::string sportsCars;
-extern const std::string matchTemplateJsonMinified;
+namespace mapping {
+    extern const std::string KEYSTONES_JSON;
+    extern const std::string SECONDARY_RUNES_JSON;
+    extern const std::string SUMMMONERS_JSON;
+    extern const std::string ITEMS_JSON;
+    extern const std::string CHAMPSIONS_JSON;
+    extern const std::string OCEAN_PAYLOAD_TEMPLATE;
+    extern const std::string SPORTS_CARS;
+    extern const std::string MATCH_TEMPLATE_JSON_MINIFIED;
+}
+

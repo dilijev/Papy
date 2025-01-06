@@ -59,6 +59,12 @@ If you are a user familiar with a CLI then you can use this tool! It was intenti
 - Easy to integrate with other tooling
 - Light weight
 
+### Dependencies
+The project has 3 main dependencies that were vendored into the project. As of the current implementation they are: 
+- nlohmann/json version 3.11.3
+- httplib.h version 0.18.1
+- OpenSSL version 3.4.0 
+
 ---
 
 ## Getting Started
@@ -110,6 +116,7 @@ If you want to launch a bunch of GET requests to a specific site:
 ./papy --threads 4 --target "https://www.google.com"
 ```
 ![Papy GET](docs/documentationImages/papyGET.gif "Papy GET")
+> WARNING: This is to demonstrate you can query public websites but use this responsibly. Overuse or non-permitted usage could cause legal problems for you. Best to use the tool on resources you own.
 
 If you want to send a static payload from a JSON file then simply specify the file path to your JSON file. The following command looks to the directory structure `../archive/mappingFiles/testPayload.json` for example to send `testPayload.json` as the body of the POST requests. This command also displays the functionality of the `--rate` flag which rate limits the requests by adding a delay of X milliseconds between each request.
 ```bash
@@ -326,20 +333,16 @@ Game Name + Tag: bsawatestuser#test
 
 ### Todo:
 
-- Spend time cleaning up possible seg fault causing code
-- Write unit tests for core code components
 - Create make based github actions to auto compile per commit
 - Investigate only having one participant in template and expanding the template with code at runtime
+
+Tips from DemiTastes on theo disc
+- README Examples of randomized data sent to mtrack
 
 - Add AWS CloudWatch connection to ocean plugin for convenient metrics tracking
 	- Configured in ocean plugin `.env` file
 
-- Auth
 - Investigate C++ coroutines for faster concurrency
-
-- SSL GET is working, SSL POST needs testing
-	- Best way to test it is most likely getting the PostgreSQL version of M-Track with the updated testing endpoints up on live and running it there.
-
 
 ### Recent Changes:
 - Rebuilt the header structure for the application
