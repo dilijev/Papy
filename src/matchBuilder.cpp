@@ -10,7 +10,8 @@
 using json = nlohmann::json;
 
 // TODO: Inspect if its best practice to hardcode path to matchTemplate
-json matchBuilder::randomMatch() const {
+// static
+json matchBuilder::randomMatch() {
     json matchTemplate;
     try {
         matchTemplate = json::parse(mapping::MATCH_TEMPLATE_JSON_MINIFIED);
