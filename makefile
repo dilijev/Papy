@@ -16,6 +16,18 @@ endif
 # Linker flags
 LDFLAGS = -L$(OPENSSL_DIR) -lssl -lcrypto  # Link local OpenSSL libraries
 
+# Compiler and flags
+CXX = g++
+CXXFLAGS_COMMON = -I$(OPENSSL_DIR) -MMD -MP   # Include dependency tracking
+ifeq ($(shell uname), Darwin)
+	CXXFLAGS = -std=c++2b $(CXXFLAGS_COMMON)  # macOS-specific flags
+else
+	CXXFLAGS = -std=c++23 $(CXXFLAGS_COMMON)  # Default flags
+endif
+
+# Linker flags
+LDFLAGS = -L$(OPENSSL_DIR) -lssl -lcrypto  # Link local OpenSSL libraries
+
 # Source files and object files
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES = $(SRC_FILES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)

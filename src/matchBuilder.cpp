@@ -1,7 +1,6 @@
 #include "matchBuilder.hpp"
 
 #include <iostream>
-#include <random>
 #include <string>
 
 #include "dependencies/json.hpp"
@@ -11,7 +10,7 @@
 using json = nlohmann::json;
 
 // TODO: Inspect if its best practice to hardcode path to matchTemplate
-json matchBuilder::randomMatch() {
+json matchBuilder::randomMatch() const {
     json matchTemplate;
     try {
         matchTemplate = json::parse(mapping::MATCH_TEMPLATE_JSON_MINIFIED);
@@ -99,7 +98,7 @@ json matchBuilder::randomMatch() {
 }
 
 // Internal function to remove the first and last characters of a string
-std::string matchBuilder::dropFirstAndLast(const std::string& str) {
+std::string matchBuilder::dropFirstAndLast(const std::string& str) const {
     if (str.length() > 2) { return str.substr(1, str.length() - 2); }
     return ""; // Return an empty string if the input is too short
 }
@@ -133,11 +132,7 @@ std::string matchBuilder::getRandomFromJson(const std::string& jsonString) {
         return "";
     }
 
-    // Generate a random index
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> distrib(0, keys.size() - 1);
-    int randomIndex = distrib(gen);
+    int randomIndex = myRandom::generateRandomInt(0, keys.size() - 1);
 
     return keys[randomIndex]; // Return a random key from the file
 }
